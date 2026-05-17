@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Perfect Pour-Over — Timemore S3 Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --amber-50: #FAEEDA; --amber-100: #FAC775; --amber-200: #EF9F27;
+    --amber-600: #854F0B; --amber-800: #633806;
+    --teal-50: #E1F5EE; --teal-100: #9FE1CB; --teal-400: #1D9E75; --teal-600: #0F6E56;
+    --gray-50: #F1EFE8; --gray-100: #D3D1C7; --gray-400: #888780;
+    --bg: #FDFCF9; --surface: #FFFFFF;
+    --border: rgba(0,0,0,0.10); --border-md: rgba(0,0,0,0.18);
+    --text: #1C1B18; --text-muted: #6B6A63;
+    --radius-md: 10px; --radius-lg: 14px;
+    --toggle-bg: #E8E6DF; --toggle-thumb: #FFFFFF;
+  }
+
+  [data-theme="dark"] {
+    --amber-50: #2E2110; --amber-100: #5A3A0A; --amber-200: #EF9F27;
+    --amber-600: #FAC775; --amber-800: #FAEEDA;
+    --teal-50: #0A1F18; --teal-100: #0D3B2B; --teal-400: #1D9E75; --teal-600: #5DCAA5;
+    --gray-50: #1E1D1A; --gray-100: #2E2D28; --gray-400: #888780;
+    --bg: #181714; --surface: #222019;
+    --border: rgba(255,255,255,0.10); --border-md: rgba(255,255,255,0.18);
+    --text: #F0EDE4; --text-muted: #8E8C82;
+    --toggle-bg: #3A3830; --toggle-thumb: #EF9F27;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg); color: var(--text);
+    min-height: 100vh; line-height: 1.6;
+    transition: background 0.25s, color 0.25s;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    border-bottom: 0.5px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; background: var(--bg); z-index: 100;
+    transition: background 0.25s;
+  }
+  .logo { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 400; color: var(--text); text-decoration: none; }
+  .logo em { font-style: italic; color: var(--amber-200); }
+  .header-right { display: flex; align-items: center; gap: 14px; }
+  .header-tag { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); border: 0.5px solid var(--border-md); border-radius: 20px; padding: 4px 14px; }
+
+  .theme-toggle { display: flex; align-items: center; gap: 7px; cursor: pointer; background: none; border: none; padding: 0; }
+  .toggle-track { width: 42px; height: 24px; background: var(--toggle-bg); border-radius: 12px; position: relative; transition: background 0.25s; border: 0.5px solid var(--border-md); flex-shrink: 0; }
+  .toggle-thumb { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--toggle-thumb); transition: transform 0.25s, background 0.25s; box-shadow: 0 1px 3px rgba(0,0,0,0.25); }
+  [data-theme="dark"] .toggle-thumb { transform: translateX(18px); }
+  .toggle-icon { font-size: 14px; line-height: 1; user-select: none; }
+
+  /* ── LAYOUT ── */
+  .main { max-width: 760px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+
+  /* ── HERO ── */
+  .hero { text-align: center; padding: 3rem 0 3.5rem; border-bottom: 0.5px solid var(--border); margin-bottom: 3rem; animation: fadeUp 0.6s ease both; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(38px, 6vw, 56px); font-weight: 400; line-height: 1.15; margin-bottom: 1rem; }
+  .hero h1 em { font-style: italic; color: var(--amber-200); }
+  .hero p { font-size: 15px; color: var(--text-muted); line-height: 1.7; max-width: 440px; margin: 0 auto; }
+
+  /* ── GRINDER BANNER ── */
+  .grinder-banner { background: var(--amber-50); border: 0.5px solid var(--amber-100); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin-bottom: 3rem; display: flex; align-items: flex-start; gap: 14px; animation: fadeUp 0.6s 0.1s ease both; }
+  .grinder-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+  .grinder-banner h3 { font-size: 14px; font-weight: 500; color: var(--amber-800); margin-bottom: 6px; }
+  .grinder-banner p { font-size: 13px; color: var(--amber-600); line-height: 1.65; }
+  .click-dial { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .click-pill { font-family: 'DM Mono', monospace; font-size: 11px; padding: 4px 12px; border-radius: 20px; border: 0.5px solid; }
+  .click-pill.pour { background: var(--teal-50); border-color: var(--teal-100); color: var(--teal-600); }
+  .click-pill.french { background: var(--gray-50); border-color: var(--gray-100); color: var(--gray-400); }
+  .click-pill.moka { background: var(--amber-50); border-color: var(--amber-100); color: var(--amber-600); }
+
+  /* ── SECTION LABEL ── */
+  .sec { font-family: 'DM Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-muted); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 10px; }
+  .sec::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
+
+  /* ── RATIO STRIP ── */
+  .ratio-strip { background: var(--teal-50); border: 0.5px solid var(--teal-100); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 3rem; display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; animation: fadeUp 0.6s 0.15s ease both; }
+  .ratio-cell { padding: 0.5rem; }
+  .ratio-cell:not(:last-child) { border-right: 0.5px solid var(--teal-100); }
+  .ratio-cell .val { font-family: 'DM Mono', monospace; font-size: 26px; font-weight: 500; color: var(--teal-600); display: block; }
+  .ratio-cell .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-top: 4px; display: block; }
+
+  /* ── CALCULATOR CARD ── */
+  .calc-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 3rem; animation: fadeUp 0.6s 0.2s ease both; }
+
+  /* free-form input rows */
+  .input-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 1.25rem; }
+
+  .input-field { display: flex; flex-direction: column; gap: 6px; }
+  .input-field label { font-size: 11px; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+
+  .input-field input[type=number] {
+    width: 100%;
+    background: var(--bg);
+    border: 0.5px solid var(--border-md);
+    border-radius: var(--radius-md);
+    padding: 10px 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.15s;
+    -moz-appearance: textfield;
+  }
+  .input-field input[type=number]::-webkit-inner-spin-button,
+  .input-field input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+  .input-field input[type=number]:focus { border-color: var(--amber-200); }
+  .input-field input[type=number].grind-input:focus { border-color: var(--teal-400); }
+
+  .input-field .unit-hint { font-size: 11px; color: var(--text-muted); font-family: 'DM Mono', monospace; }
+
+  /* result pill shown below ratio inputs */
+  .ratio-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--teal-50); border: 0.5px solid var(--teal-100); border-radius: 20px; padding: 4px 14px; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--teal-600); margin-bottom: 1.25rem; }
+
+  /* grind zone bar */
+  .grind-zone-wrap { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-md); padding: 0.85rem 1rem; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 12px; }
+  .grind-zone-label-left { font-size: 11px; color: var(--text-muted); min-width: 70px; font-family: 'DM Mono', monospace; }
+  .grind-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; position: relative; }
+  .grind-fill { height: 100%; border-radius: 3px; background: linear-gradient(to right, var(--teal-400), var(--amber-200), #D85A30); transition: width 0.3s ease; }
+  .grind-marker { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 14px; height: 14px; border-radius: 50%; background: var(--amber-200); border: 2px solid var(--bg); box-shadow: 0 0 0 1.5px var(--amber-200); transition: left 0.3s ease; }
+  .grind-zone-name { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; color: var(--text); min-width: 110px; text-align: right; }
+  .grind-advice { font-size: 11px; color: var(--text-muted); font-family: 'DM Mono', monospace; text-align: center; margin-bottom: 1.25rem; }
+
+  /* pour timeline */
+  .pour-timeline { border-top: 0.5px solid var(--border); padding-top: 1.25rem; }
+  .pour-timeline h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; font-family: 'DM Mono', monospace; color: var(--text-muted); margin-bottom: 1rem; }
+
+  .pour-row { display: grid; grid-template-columns: 90px 1fr 58px 80px; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .pour-label { font-size: 12px; color: var(--text-muted); }
+  .pour-bar-wrap { height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; border: 0.5px solid var(--border); }
+  .pour-bar { height: 8px; border-radius: 4px; background: var(--amber-200); transition: width 0.35s ease; }
+  .pour-ml { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text); text-align: right; }
+  .pour-time { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--teal-600); text-align: right; white-space: nowrap; font-weight: 500; transition: color 0.3s; }
+  .ratio-note { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 1rem; }
+
+  /* ── STEPS ── */
+  .steps-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 3rem; }
+  .step-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.1rem 1.4rem; display: flex; gap: 16px; align-items: flex-start; cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+  .step-card:hover { border-color: var(--border-md); }
+  .step-card.active { border-color: var(--amber-200); background: var(--amber-50); }
+  .step-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); border: 0.5px solid var(--border-md); border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; transition: all 0.15s; }
+  .step-card.active .step-num { background: var(--amber-200); border-color: var(--amber-200); color: #fff; }
+  .step-body { flex: 1; }
+  .step-body h3 { font-size: 15px; font-weight: 500; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; color: var(--text); }
+  .time-badge { font-family: 'DM Mono', monospace; font-size: 10px; background: var(--bg); border: 0.5px solid var(--border-md); border-radius: 20px; padding: 2px 9px; color: var(--text-muted); }
+  .step-card.active .time-badge { background: var(--amber-100); border-color: var(--amber-200); color: var(--amber-800); }
+  .step-body > p { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+  .step-detail { display: none; margin-top: 12px; padding-top: 12px; border-top: 0.5px solid var(--amber-100); }
+  .step-card.active .step-detail { display: block; }
+  .step-detail p { font-size: 13px; line-height: 1.75; color: var(--text-muted); }
+  .step-detail p strong { color: var(--text); font-weight: 500; }
+  .tip { margin-top: 10px; font-size: 12px; color: var(--teal-600); display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; }
+
+  /* ── GRIND TABLE ── */
+  .grind-table { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 3rem; }
+  .grind-table table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+  .grind-table th { background: var(--bg); padding: 11px 16px; text-align: left; font-weight: 500; font-size: 12px; color: var(--text-muted); border-bottom: 0.5px solid var(--border); }
+  .grind-table td { padding: 11px 16px; border-bottom: 0.5px solid var(--border); vertical-align: top; color: var(--text); line-height: 1.5; }
+  .grind-table tr:last-child td { border-bottom: none; }
+  .gtag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 11px; padding: 3px 10px; border-radius: 20px; border: 0.5px solid; }
+  .gtag.fine { background: var(--teal-50); border-color: var(--teal-100); color: var(--teal-600); }
+  .gtag.medium { background: var(--amber-50); border-color: var(--amber-100); color: var(--amber-600); }
+  .gtag.coarse { background: var(--gray-50); border-color: var(--gray-100); color: var(--gray-400); }
+
+  /* ── WATER ── */
+  .water-bar { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin-bottom: 3rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  .water-item h4 { font-size: 11px; font-weight: 500; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.08em; font-family: 'DM Mono', monospace; }
+  .water-item p { font-size: 16px; font-weight: 500; color: var(--text); }
+  .water-item p span { font-size: 12px; color: var(--text-muted); font-weight: 400; }
+
+  /* ── TROUBLE ── */
+  .trouble-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 3rem; }
+  .trouble-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.1rem 1.25rem; }
+  .trouble-card h4 { font-size: 13px; font-weight: 500; margin-bottom: 7px; display: flex; align-items: center; gap: 8px; color: var(--text); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot.sour { background: var(--amber-200); } .dot.bitter { background: #D85A30; } .dot.flat { background: var(--gray-400); } .dot.fast { background: var(--teal-400); }
+  .trouble-card p { font-size: 12px; color: var(--text-muted); line-height: 1.7; }
+
+  /* ── FOOTER ── */
+  .site-footer { text-align: center; padding: 2rem; border-top: 0.5px solid var(--border); font-size: 12px; color: var(--text-muted); font-family: 'DM Mono', monospace; letter-spacing: 0.06em; }
+
+  /* ── ANIMATION ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  .anim { animation: fadeUp 0.55s ease both; }
+  .anim-1 { animation-delay: 0.05s; } .anim-2 { animation-delay: 0.1s; } .anim-3 { animation-delay: 0.15s; } .anim-4 { animation-delay: 0.2s; } .anim-5 { animation-delay: 0.25s; }
+
+  @media (max-width: 580px) {
+    .main { padding: 2rem 1.25rem 5rem; }
+    .hero h1 { font-size: 32px; }
+    .input-group { grid-template-columns: 1fr 1fr; }
+    .trouble-grid { grid-template-columns: 1fr; }
+    .water-bar { grid-template-columns: 1fr 1fr; }
+    .ratio-cell .val { font-size: 20px; }
+    .pour-row { grid-template-columns: 72px 1fr 50px 66px; gap: 6px; }
+    .header-tag { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="#" class="logo">Pour-<em>Over</em></a>
+  <div class="header-right">
+    <span class="header-tag">Timemore S3 Guide</span>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+      <span class="toggle-icon">☀️</span>
+      <div class="toggle-track"><div class="toggle-thumb"></div></div>
+      <span class="toggle-icon">🌙</span>
+    </button>
+  </div>
+</header>
+
+<main class="main">
+
+  <div class="hero">
+    <h1>The <em>Perfect</em><br>Pour-Over</h1>
+    <p>A complete brewing guide calibrated for the Timemore S3 · Works with V60, Chemex & Kalita Wave</p>
+  </div>
+
+  <div class="grinder-banner anim anim-1">
+    <span class="grinder-icon">⚙️</span>
+    <div>
+      <h3>Timemore S3 — your grind settings</h3>
+      <p>The S3 has 9 numbered positions with 10 clicks between each = 90 total settings, at 15 microns per click. For pour-over, start at click 60–65 and adjust. One click finer if sour; one click coarser if bitter.</p>
+      <div class="click-dial">
+        <span class="click-pill moka">Moka: 5–20</span>
+        <span class="click-pill pour">Pour-over: 50–80</span>
+        <span class="click-pill french">French press: 80–90</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec anim anim-2">Brew ratio</div>
+
+  <div class="ratio-strip anim anim-2">
+    <div class="ratio-cell"><span class="val" id="strip-ratio">1:15</span><span class="lbl">ratio</span></div>
+    <div class="ratio-cell"><span class="val" id="strip-coffee">20g</span><span class="lbl">coffee</span></div>
+    <div class="ratio-cell"><span class="val" id="strip-water">300ml</span><span class="lbl">water</span></div>
+  </div>
+
+  <div class="sec anim anim-3">Brew calculator</div>
+
+  <div class="calc-card anim anim-3">
+
+    <!-- Free-form inputs: coffee, water, grind clicks -->
+    <div class="input-group">
+      <div class="input-field">
+        <label for="in-coffee">Coffee</label>
+        <input type="number" id="in-coffee" value="20" min="1" placeholder="20" oninput="onCoffeeInput()">
+        <span class="unit-hint">grams</span>
+      </div>
+      <div class="input-field">
+        <label for="in-water">Water</label>
+        <input type="number" id="in-water" value="300" min="1" placeholder="300" oninput="onWaterInput()">
+        <span class="unit-hint">ml</span>
+      </div>
+      <div class="input-field">
+        <label for="in-grind">S3 grind clicks</label>
+        <input type="number" id="in-grind" value="62" min="1" max="90" placeholder="62" class="grind-input" oninput="update()">
+        <span class="unit-hint">clicks (50–80 for pour-over)</span>
+      </div>
+    </div>
+
+    <!-- Derived ratio pill -->
+    <div style="margin-bottom:1.25rem;">
+      <span class="ratio-pill">Ratio 1 : <span id="r-ratio">15.0</span></span>
+    </div>
+
+    <!-- Grind zone indicator -->
+    <div class="grind-zone-wrap">
+      <span class="grind-zone-label-left">Grind zone</span>
+      <div class="grind-track">
+        <div class="grind-fill" id="grind-fill" style="width:40%"></div>
+        <div class="grind-marker" id="grind-marker" style="left:40%"></div>
+      </div>
+      <span class="grind-zone-name" id="grind-zone-name">Medium</span>
+    </div>
+    <p class="grind-advice" id="grind-advice">Sweet spot for V60 & Kalita Wave — start here</p>
+
+    <!-- Pour breakdown with grind-driven timings -->
+    <div class="pour-timeline">
+      <h4>Pour breakdown — timings adjust with your grind</h4>
+      <div class="pour-row">
+        <span class="pour-label">Bloom</span>
+        <div class="pour-bar-wrap"><div class="pour-bar" id="bar-bloom"></div></div>
+        <span class="pour-ml" id="ml-bloom">40 ml</span>
+        <span class="pour-time" id="t-bloom">0:00 – 0:45</span>
+      </div>
+      <div class="pour-row">
+        <span class="pour-label">1st pour</span>
+        <div class="pour-bar-wrap"><div class="pour-bar" id="bar-p1"></div></div>
+        <span class="pour-ml" id="ml-p1">150 ml</span>
+        <span class="pour-time" id="t-p1">0:45 – 1:15</span>
+      </div>
+      <div class="pour-row">
+        <span class="pour-label">2nd pour</span>
+        <div class="pour-bar-wrap"><div class="pour-bar" id="bar-p2"></div></div>
+        <span class="pour-ml" id="ml-p2">225 ml</span>
+        <span class="pour-time" id="t-p2">1:15 – 1:45</span>
+      </div>
+      <div class="pour-row">
+        <span class="pour-label">Final pour</span>
+        <div class="pour-bar-wrap"><div class="pour-bar" id="bar-p3"></div></div>
+        <span class="pour-ml" id="ml-p3">300 ml</span>
+        <span class="pour-time" id="t-p3">1:45 – 2:15</span>
+      </div>
+      <p class="ratio-note" id="total-time-note">Estimated total draw-down: 3:00 – 3:30</p>
+    </div>
+  </div>
+
+  <div class="sec anim anim-4">Step by step</div>
+
+  <div class="steps-list anim anim-4">
+
+    <div class="step-card" onclick="tog(this)">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>Boil & rest water <span class="time-badge">5 min before</span></h3>
+        <p>Get water temperature right — this is non-negotiable.</p>
+        <div class="step-detail">
+          <p>Target <strong>93–96°C</strong> for most roasts. No thermometer? Boil and wait 45 seconds — you'll land near 94°C. Light roasts benefit from the hotter end (95–96°C); dark roasts, 90–92°C.</p>
+          <div class="tip">💧 Filtered water with moderate mineral content (around 150 TDS) extracts significantly better than tap or distilled.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card" onclick="tog(this)">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>Grind fresh <span class="time-badge">right before brewing</span></h3>
+        <p>S3 at ~60–65 clicks · medium-fine · like coarse sand.</p>
+        <div class="step-detail">
+          <p>Grind your coffee immediately before brewing. Dial the S3's external ring to around <strong>position 6, 0–5 sub-clicks</strong> (≈ click 60–65 from zero). The S2C890 burrs produce an impressively even particle distribution here.</p>
+          <div class="tip">⚠️ The S3's external ring can shift accidentally — double check your setting before each grind, as it doesn't lock firmly into place.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card" onclick="tog(this)">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>Rinse the filter <span class="time-badge">30 sec</span></h3>
+        <p>Remove papery taste and preheat your brewer.</p>
+        <div class="step-detail">
+          <p>Place your paper filter in the dripper and pour hot water through it to fully saturate it. This eliminates papery flavor and warms the vessel so brew temperature stays stable. Discard the rinse water.</p>
+          <div class="tip">ℹ️ Metal or cloth filters don't need rinsing — just preheat the brewer.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card" onclick="tog(this)">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h3>Bloom <span class="time-badge">0:00 – 0:45</span></h3>
+        <p>Pour <span class="dyn-bloom">40ml</span> · 2× coffee weight · wait 45 sec.</p>
+        <div class="step-detail">
+          <p>Add your ground coffee and make a small well in the center. Pour <strong><span class="dyn-bloom">40ml</span></strong> in a slow spiral from center outward. This releases CO₂ trapped in the beans — fresh beans bubble vigorously. Rest 45 seconds undisturbed.</p>
+          <div class="tip">⭐ No bloom = stale beans. Buy beans roasted within the past 2 weeks.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card" onclick="tog(this)">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h3>First pour <span class="time-badge">0:45 – 1:15</span></h3>
+        <p>Pour to <span class="dyn-p1">150ml</span> total · slow spiral · stay central.</p>
+        <div class="step-detail">
+          <p>Starting at 0:45, pour in a steady spiral from center outward to <strong><span class="dyn-p1">150ml</span></strong>. Keep the spout low — about 3–4cm above the bed. Avoid pouring on the filter walls.</p>
+          <div class="tip">⬇️ Pour low to minimize agitation. Aggressive pouring leads to uneven extraction.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card" onclick="tog(this)">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <h3>Second pour <span class="time-badge">1:15 – 1:45</span></h3>
+        <p>Pour to <span class="dyn-p2">225ml</span> total · let drain slightly first.</p>
+        <div class="step-detail">
+          <p>Let the bed drain slightly, then pour a spiral bringing total to <strong><span class="dyn-p2">225ml</span></strong>. The water level should stay just below the top of the grounds — never overflow the dripper.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card" onclick="tog(this)">
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <h3>Final pour <span class="time-badge">1:45 – 2:15</span></h3>
+        <p>Pour to <span class="dyn-p3">300ml</span> total · finish draw-down by 3:30.</p>
+        <div class="step-detail">
+          <p>Complete with a final pour to reach <strong><span class="dyn-p3">300ml</span></strong>. Total draw-down should finish between <strong>2:30 and 3:30</strong>. Past 4 minutes → go coarser. Under 2 minutes → go finer.</p>
+          <div class="tip">🕐 Target total brew time: 3:00–3:30. This is your key diagnostic number.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sec anim anim-5">S3 grind reference</div>
+
+  <div class="grind-table anim anim-5">
+    <table>
+      <thead><tr><th style="width:32%">S3 setting</th><th style="width:32%">Result</th><th style="width:36%">Use when</th></tr></thead>
+      <tbody>
+        <tr><td><span class="gtag fine">50–58 clicks</span></td><td>Medium-fine</td><td>Sour cup; draw-down under 2:30; light roasts</td></tr>
+        <tr><td><span class="gtag medium">59–68 clicks</span></td><td>Medium · sweet spot</td><td>Standard V60 & Kalita Wave · start here</td></tr>
+        <tr><td><span class="gtag coarse">69–80 clicks</span></td><td>Medium-coarse</td><td>Chemex · bitter cup · draw-down over 4:00</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec">Water quality</div>
+  <div class="water-bar">
+    <div class="water-item"><h4>Temperature</h4><p>93–96°C <span>/ ~200°F</span></p></div>
+    <div class="water-item"><h4>Mineral content</h4><p>100–200 TDS <span>filtered preferred</span></p></div>
+    <div class="water-item"><h4>pH level</h4><p>6.5–7.5 <span>neutral</span></p></div>
+    <div class="water-item"><h4>Chlorine</h4><p>None <span>filter tap water</span></p></div>
+  </div>
+
+  <div class="sec">Troubleshooting</div>
+  <div class="trouble-grid">
+    <div class="trouble-card"><h4><span class="dot sour"></span> Tastes sour / sharp</h4><p>Under-extracted. Go finer on the S3 (–1 to –2 clicks), increase water temp by 1–2°C, or slow your pour.</p></div>
+    <div class="trouble-card"><h4><span class="dot bitter"></span> Tastes bitter / harsh</h4><p>Over-extracted. Go coarser (+1 to +2 clicks), lower water temp slightly, or shorten brew time.</p></div>
+    <div class="trouble-card"><h4><span class="dot flat"></span> Tastes flat / dull</h4><p>Stale coffee or water too cool. Buy beans roasted within 2 weeks. Increase water temp to 96°C.</p></div>
+    <div class="trouble-card"><h4><span class="dot fast"></span> Draining too fast / slow</h4><p>Fast = go finer; aim for 3:00–3:30. Slow = go coarser — likely too fine or clogged filter.</p></div>
+  </div>
+
+</main>
+
+<footer class="site-footer">The Perfect Pour-Over · Timemore S3 Edition</footer>
+
+<script>
+// ── Theme ──────────────────────────────────────────────────
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+}
+(function initTheme() {
+  const saved = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+})();
+
+// ── Helpers ────────────────────────────────────────────────
+function fmtTime(totalSec) {
+  const m = Math.floor(totalSec / 60);
+  const s = Math.round(totalSec % 60);
+  return m + ':' + String(s).padStart(2, '0');
+}
+
+function fmtRange(startSec, endSec) {
+  return fmtTime(startSec) + ' – ' + fmtTime(endSec);
+}
+
+// ── Grind → timing model ───────────────────────────────────
+//
+// The S3 pour-over range is click 50–80.
+// Finer grind (50) = slower flow → longer intervals between pours.
+// Coarser grind (80) = faster flow → shorter intervals, faster draw-down.
+//
+// Base timings at click 62 (sweet spot):
+//   Bloom wait:       45s  (constant — CO2 release, not grind-dependent)
+//   After bloom drain: 30s  (wait before 1st pour)
+//   1st pour duration: 30s  (pouring time, constant)
+//   After 1st drain:  30s
+//   2nd pour duration: 30s
+//   After 2nd drain:  30s
+//   Final pour:       30s
+//   Final draw-down:  90s  (from last drop to done)
+//
+// We scale the "drain wait" intervals by a flow factor:
+//   flowFactor = 1 at click 62
+//   flowFactor > 1 (slower) at finer clicks (50)
+//   flowFactor < 1 (faster) at coarser clicks (80)
+//
+// flowFactor range: ~1.5x at click 50 → ~0.65x at click 80
+
+function getFlowFactor(clicks) {
+  // Linear interpolation: click 50 → 1.5, click 80 → 0.65
+  const clamped = Math.max(1, Math.min(90, clicks));
+  if (clamped <= 50) return 1.5;
+  if (clamped >= 80) return 0.65;
+  return 1.5 + ((clamped - 50) / (80 - 50)) * (0.65 - 1.5);
+}
+
+function getTiming(clicks) {
+  const ff = getFlowFactor(clicks);
+
+  // Fixed times (seconds)
+  const bloomStart = 0;
+  const bloomEnd   = 45;                          // bloom wait always ~45s
+
+  // drain after bloom before 1st pour
+  const drainAfterBloom = Math.round(30 * ff);
+  const p1Start = bloomEnd + drainAfterBloom;
+  const p1Duration = 30;                          // pouring time ~constant
+  const p1End = p1Start + p1Duration;
+
+  const drainAfterP1 = Math.round(30 * ff);
+  const p2Start = p1End + drainAfterP1;
+  const p2Duration = 30;
+  const p2End = p2Start + p2Duration;
+
+  const drainAfterP2 = Math.round(25 * ff);
+  const p3Start = p2End + drainAfterP2;
+  const p3Duration = 30;
+  const p3End = p3Start + p3Duration;
+
+  const finalDrawdown = Math.round(90 * ff);
+  const totalEnd = p3End + finalDrawdown;
+
+  return { bloomStart, bloomEnd, p1Start, p1End, p2Start, p2End, p3Start, p3End, totalEnd };
+}
+
+// ── Grind zone info ────────────────────────────────────────
+function getGrindZone(clicks) {
+  const pct = Math.max(4, Math.min(96, ((clicks - 50) / 30) * 100));
+  if (clicks < 50)  return { zone: 'Too fine for pour-over', advice: 'Below pour-over range — risk of over-extraction & clogging', pct: 4 };
+  if (clicks <= 58) return { zone: 'Fine-medium', advice: 'Finer end — slower flow, longer brew time, more extraction', pct };
+  if (clicks <= 65) return { zone: 'Medium', advice: 'Sweet spot for V60 & Kalita Wave — start here', pct };
+  if (clicks <= 72) return { zone: 'Medium-coarse', advice: 'Coarser end — faster flow, shorter brew time, less extraction', pct };
+  if (clicks <= 80) return { zone: 'Coarse', advice: 'Chemex territory — very fast flow, watch for under-extraction', pct };
+  return { zone: 'Too coarse for pour-over', advice: 'Above pour-over range — approaching French press', pct: 96 };
+}
+
+// ── Input handlers ─────────────────────────────────────────
+function onCoffeeInput() {
+  const coffee = parseFloat(document.getElementById('in-coffee').value) || 0;
+  if (coffee > 0) {
+    const water = Math.round(coffee * 15);
+    document.getElementById('in-water').value = water;
+  }
+  update();
+}
+
+function onWaterInput() {
+  const water = parseFloat(document.getElementById('in-water').value) || 0;
+  if (water > 0) {
+    const coffee = (water / 15).toFixed(1);
+    document.getElementById('in-coffee').value = coffee;
+  }
+  update();
+}
+
+// ── Main update ────────────────────────────────────────────
+function update() {
+  const coffee = parseFloat(document.getElementById('in-coffee').value) || 0;
+  const water  = parseFloat(document.getElementById('in-water').value) || 0;
+  const clicks = parseInt(document.getElementById('in-grind').value) || 62;
+
+  // Ratio
+  const ratio = coffee > 0 ? (water / coffee).toFixed(1).replace(/\.0$/, '') : '—';
+  document.getElementById('r-ratio').textContent = ratio;
+
+  // Keep the top "Brew ratio" strip in sync (ratio stays fixed at 1:15)
+  document.getElementById('strip-coffee').textContent = coffee + 'g';
+  document.getElementById('strip-water').textContent  = water + 'ml';
+
+  // Pours
+  const bloom = Math.round(coffee * 2);
+  const p1    = Math.round(water * 0.5);
+  const p2    = Math.round(water * 0.75);
+  const p3    = water;
+
+  document.getElementById('ml-bloom').textContent = bloom + ' ml';
+  document.getElementById('ml-p1').textContent    = p1   + ' ml';
+  document.getElementById('ml-p2').textContent    = p2   + ' ml';
+  document.getElementById('ml-p3').textContent    = p3   + ' ml';
+
+  const maxWater = Math.max(water, 1);
+  document.getElementById('bar-bloom').style.width = Math.round((bloom / maxWater) * 100) + '%';
+  document.getElementById('bar-p1').style.width    = Math.round((p1    / maxWater) * 100) + '%';
+  document.getElementById('bar-p2').style.width    = Math.round((p2    / maxWater) * 100) + '%';
+  document.getElementById('bar-p3').style.width    = '100%';
+
+  document.querySelectorAll('.dyn-bloom').forEach(el => el.textContent = bloom + 'ml');
+  document.querySelectorAll('.dyn-p1').forEach(el => el.textContent   = p1   + 'ml');
+  document.querySelectorAll('.dyn-p2').forEach(el => el.textContent   = p2   + 'ml');
+  document.querySelectorAll('.dyn-p3').forEach(el => el.textContent   = p3   + 'ml');
+
+  // Timings driven by grind clicks
+  const t = getTiming(clicks);
+
+  document.getElementById('t-bloom').textContent = fmtRange(t.bloomStart, t.bloomEnd);
+  document.getElementById('t-p1').textContent    = fmtRange(t.p1Start,   t.p1End);
+  document.getElementById('t-p2').textContent    = fmtRange(t.p2Start,   t.p2End);
+  document.getElementById('t-p3').textContent    = fmtRange(t.p3Start,   t.p3End);
+
+  const totalMin = Math.floor(t.totalEnd / 60);
+  const totalSec = Math.round(t.totalEnd % 60);
+  document.getElementById('total-time-note').textContent =
+    'Estimated total draw-down: ' + fmtTime(t.totalEnd) +
+    (clicks < 59 ? ' — consider going coarser' : clicks > 72 ? ' — consider going finer' : '');
+
+  // Grind zone
+  const zone = getGrindZone(clicks);
+  document.getElementById('grind-fill').style.width   = zone.pct + '%';
+  document.getElementById('grind-marker').style.left  = zone.pct + '%';
+  document.getElementById('grind-zone-name').textContent = zone.zone;
+  document.getElementById('grind-advice').textContent    = zone.advice;
+}
+
+// ── Steps accordion ────────────────────────────────────────
+function tog(el) {
+  const wasActive = el.classList.contains('active');
+  document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
+  if (!wasActive) el.classList.add('active');
+}
+
+update();
+</script>
+</body>
+</html>
