@@ -142,7 +142,11 @@
   .pour-bar-wrap { height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; border: 0.5px solid var(--border); }
   .pour-bar { height: 8px; border-radius: 4px; background: var(--amber-200); transition: width 0.35s ease; }
   .pour-ml { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text); text-align: right; }
-  .pour-time { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--teal-600); text-align: right; white-space: nowrap; font-weight: 500; transition: color 0.3s; }
+  .pour-time { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--teal-600); text-align: right; white-space: nowrap; font-weight: 500; }
+  .drain-row { opacity: 0.65; }
+  .drain-label { font-size: 11px; color: var(--text-muted); font-style: italic; }
+  .drain-bar { height: 8px; border-radius: 4px; background: var(--gray-100); transition: width 0.35s ease; }
+  .drain-time { color: var(--text-muted) !important; font-weight: 400 !important; font-style: italic; }
   .ratio-note { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 1rem; }
 
   /* ── STEPS ── */
@@ -275,7 +279,8 @@
 
     <!-- Derived ratio pill -->
     <div style="margin-bottom:1.25rem;">
-      <span class="ratio-pill">Ratio 1 : <span id="r-ratio">15.0</span></span>
+      <span class="ratio-pill">Ratio 1 : <span id="r-ratio">15</span></span>
+      <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);">Pour-over range: 50–80 clicks · sweet spot: 62</span>
     </div>
 
     <!-- Grind zone indicator -->
@@ -289,37 +294,41 @@
     </div>
     <p class="grind-advice" id="grind-advice">Sweet spot for V60 & Kalita Wave — start here</p>
 
-    <!-- Pour breakdown with grind-driven timings -->
+    <!-- Pour breakdown -->
     <div class="pour-timeline">
-      <h4>Pour breakdown — timings adjust with your grind</h4>
+      <h4>Pour breakdown — when to start each pour</h4>
+
       <div class="pour-row">
         <span class="pour-label">Bloom</span>
         <div class="pour-bar-wrap"><div class="pour-bar" id="bar-bloom"></div></div>
         <span class="pour-ml" id="ml-bloom">40 ml</span>
         <span class="pour-time" id="t-bloom">0:00 – 0:45</span>
       </div>
+
       <div class="pour-row">
         <span class="pour-label">1st pour</span>
         <div class="pour-bar-wrap"><div class="pour-bar" id="bar-p1"></div></div>
         <span class="pour-ml" id="ml-p1">150 ml</span>
         <span class="pour-time" id="t-p1">0:45 – 1:15</span>
       </div>
+
       <div class="pour-row">
         <span class="pour-label">2nd pour</span>
         <div class="pour-bar-wrap"><div class="pour-bar" id="bar-p2"></div></div>
         <span class="pour-ml" id="ml-p2">225 ml</span>
         <span class="pour-time" id="t-p2">1:15 – 1:45</span>
       </div>
+
       <div class="pour-row">
         <span class="pour-label">Final pour</span>
         <div class="pour-bar-wrap"><div class="pour-bar" id="bar-p3"></div></div>
         <span class="pour-ml" id="ml-p3">300 ml</span>
         <span class="pour-time" id="t-p3">1:45 – 2:15</span>
       </div>
+
       <p class="ratio-note" id="total-time-note">Estimated total draw-down: 3:00 – 3:30</p>
     </div>
   </div>
-
   <div class="sec anim anim-4">Step by step</div>
 
   <div class="steps-list anim anim-4">
@@ -363,7 +372,7 @@
     <div class="step-card" onclick="tog(this)">
       <div class="step-num">4</div>
       <div class="step-body">
-        <h3>Bloom <span class="time-badge">0:00 – 0:45</span></h3>
+        <h3>Bloom <span class="time-badge" id="badge-bloom">0:00 – 0:45</span></h3>
         <p>Pour <span class="dyn-bloom">40ml</span> · 2× coffee weight · wait 45 sec.</p>
         <div class="step-detail">
           <p>Add your ground coffee and make a small well in the center. Pour <strong><span class="dyn-bloom">40ml</span></strong> in a slow spiral from center outward. This releases CO₂ trapped in the beans — fresh beans bubble vigorously. Rest 45 seconds undisturbed.</p>
@@ -375,7 +384,7 @@
     <div class="step-card" onclick="tog(this)">
       <div class="step-num">5</div>
       <div class="step-body">
-        <h3>First pour <span class="time-badge">0:45 – 1:15</span></h3>
+        <h3>First pour <span class="time-badge" id="badge-p1">0:45 – 1:15</span></h3>
         <p>Pour to <span class="dyn-p1">150ml</span> total · slow spiral · stay central.</p>
         <div class="step-detail">
           <p>Starting at 0:45, pour in a steady spiral from center outward to <strong><span class="dyn-p1">150ml</span></strong>. Keep the spout low — about 3–4cm above the bed. Avoid pouring on the filter walls.</p>
@@ -387,7 +396,7 @@
     <div class="step-card" onclick="tog(this)">
       <div class="step-num">6</div>
       <div class="step-body">
-        <h3>Second pour <span class="time-badge">1:15 – 1:45</span></h3>
+        <h3>Second pour <span class="time-badge" id="badge-p2">1:15 – 1:45</span></h3>
         <p>Pour to <span class="dyn-p2">225ml</span> total · let drain slightly first.</p>
         <div class="step-detail">
           <p>Let the bed drain slightly, then pour a spiral bringing total to <strong><span class="dyn-p2">225ml</span></strong>. The water level should stay just below the top of the grounds — never overflow the dripper.</p>
@@ -398,7 +407,7 @@
     <div class="step-card" onclick="tog(this)">
       <div class="step-num">7</div>
       <div class="step-body">
-        <h3>Final pour <span class="time-badge">1:45 – 2:15</span></h3>
+        <h3>Final pour <span class="time-badge" id="badge-p3">1:45 – 2:15</span></h3>
         <p>Pour to <span class="dyn-p3">300ml</span> total · finish draw-down by 3:30.</p>
         <div class="step-detail">
           <p>Complete with a final pour to reach <strong><span class="dyn-p3">300ml</span></strong>. Total draw-down should finish between <strong>2:30 and 3:30</strong>. Past 4 minutes → go coarser. Under 2 minutes → go finer.</p>
@@ -491,40 +500,56 @@ function fmtRange(startSec, endSec) {
 // flowFactor range: ~1.5x at click 50 → ~0.65x at click 80
 
 function getFlowFactor(clicks) {
-  // Linear interpolation: click 50 → 1.5, click 80 → 0.65
+  // ff = 1.0 at click 62 (sweet spot, total brew = 3:30)
+  // ff > 1 for finer grinds (slower flow, longer waits)
+  // ff < 1 for coarser grinds (faster flow, shorter waits)
+  // Range: click 50 → 1.35, click 62 → 1.0, click 80 → 0.65
   const clamped = Math.max(1, Math.min(90, clicks));
-  if (clamped <= 50) return 1.5;
-  if (clamped >= 80) return 0.65;
-  return 1.5 + ((clamped - 50) / (80 - 50)) * (0.65 - 1.5);
+  if (clamped <= 50) return 1.35;
+  if (clamped <= 62) return 1.35 + ((clamped - 50) / (62 - 50)) * (1.0 - 1.35);
+  if (clamped <= 80) return 1.0  + ((clamped - 62) / (80 - 62)) * (0.65 - 1.0);
+  return 0.65;
 }
 
 function getTiming(clicks) {
   const ff = getFlowFactor(clicks);
 
-  // Fixed times (seconds)
+  // ── Baseline timings match the written guide exactly (at click 62, ff=1.0):
+  //   Bloom:       0:00 – 0:45  (45s fixed)
+  //   Drain wait:  0s            → at baseline pours are back-to-back
+  //   1st pour:    0:45 – 1:15  (30s)
+  //   Drain wait:  0s
+  //   2nd pour:    1:15 – 1:45  (30s)
+  //   Drain wait:  0s
+  //   Final pour:  1:45 – 2:15  (30s)
+  //   Draw-down:   75s           → total 3:30
+  //
+  // Finer grind (ff > 1): drain waits grow — water drains slower so you wait longer
+  // Coarser grind (ff < 1): drain waits stay 0 — fast drain, pours stay back-to-back
+  // The pour duration itself (30s) doesn't change — that's your hand speed, not the grind.
+
   const bloomStart = 0;
-  const bloomEnd   = 45;                          // bloom wait always ~45s
+  const bloomEnd   = 45;  // always fixed
 
-  // drain after bloom before 1st pour
-  const drainAfterBloom = Math.round(30 * ff);
-  const p1Start = bloomEnd + drainAfterBloom;
-  const p1Duration = 30;                          // pouring time ~constant
-  const p1End = p1Start + p1Duration;
+  // Each drain wait = 0 at baseline (ff=1.0), scales linearly above that
+  const d0 = Math.max(0, Math.round((ff - 1.0) * 22));  // after bloom
+  const d1 = Math.max(0, Math.round((ff - 1.0) * 28));  // after 1st pour
+  const d2 = Math.max(0, Math.round((ff - 1.0) * 22));  // after 2nd pour
 
-  const drainAfterP1 = Math.round(30 * ff);
-  const p2Start = p1End + drainAfterP1;
-  const p2Duration = 30;
-  const p2End = p2Start + p2Duration;
+  const p1Start = bloomEnd + d0;
+  const p1End   = p1Start + 30;
 
-  const drainAfterP2 = Math.round(25 * ff);
-  const p3Start = p2End + drainAfterP2;
-  const p3Duration = 30;
-  const p3End = p3Start + p3Duration;
+  const p2Start = p1End + d1;
+  const p2End   = p2Start + 30;
 
-  const finalDrawdown = Math.round(90 * ff);
+  const p3Start = p2End + d2;
+  const p3End   = p3Start + 30;
+
+  // Draw-down: 75s at baseline, scales with grind
+  const finalDrawdown = Math.round(75 * ff);
   const totalEnd = p3End + finalDrawdown;
 
-  return { bloomStart, bloomEnd, p1Start, p1End, p2Start, p2End, p3Start, p3End, totalEnd };
+  return { bloomStart, bloomEnd, d0, p1Start, p1End, d1, p2Start, p2End, d2, p3Start, p3End, totalEnd };
 }
 
 // ── Grind zone info ────────────────────────────────────────
@@ -593,16 +618,21 @@ function update() {
   document.querySelectorAll('.dyn-p2').forEach(el => el.textContent   = p2   + 'ml');
   document.querySelectorAll('.dyn-p3').forEach(el => el.textContent   = p3   + 'ml');
 
-  // Timings driven by grind clicks
+  // Timings driven by grind clicks — show full range
   const t = getTiming(clicks);
 
-  document.getElementById('t-bloom').textContent = fmtRange(t.bloomStart, t.bloomEnd);
-  document.getElementById('t-p1').textContent    = fmtRange(t.p1Start,   t.p1End);
-  document.getElementById('t-p2').textContent    = fmtRange(t.p2Start,   t.p2End);
-  document.getElementById('t-p3').textContent    = fmtRange(t.p3Start,   t.p3End);
+  document.getElementById('t-bloom').textContent      = '0:00 – ' + fmtTime(t.bloomEnd);
+  document.getElementById('badge-bloom').textContent  = '0:00 – ' + fmtTime(t.bloomEnd);
 
-  const totalMin = Math.floor(t.totalEnd / 60);
-  const totalSec = Math.round(t.totalEnd % 60);
+  document.getElementById('t-p1').textContent         = fmtTime(t.p1Start) + ' – ' + fmtTime(t.p1End);
+  document.getElementById('badge-p1').textContent     = fmtTime(t.p1Start) + ' – ' + fmtTime(t.p1End);
+
+  document.getElementById('t-p2').textContent         = fmtTime(t.p2Start) + ' – ' + fmtTime(t.p2End);
+  document.getElementById('badge-p2').textContent     = fmtTime(t.p2Start) + ' – ' + fmtTime(t.p2End);
+
+  document.getElementById('t-p3').textContent         = fmtTime(t.p3Start) + ' – ' + fmtTime(t.p3End);
+  document.getElementById('badge-p3').textContent     = fmtTime(t.p3Start) + ' – ' + fmtTime(t.p3End);
+
   document.getElementById('total-time-note').textContent =
     'Estimated total draw-down: ' + fmtTime(t.totalEnd) +
     (clicks < 59 ? ' — consider going coarser' : clicks > 72 ? ' — consider going finer' : '');
